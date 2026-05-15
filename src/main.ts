@@ -20,7 +20,7 @@ function initGame(): void {
     return;
   }
 
-  game = Game.getInstance();
+  game = Game.getInstance(canvas);
   game.init();
 
   const sceneManager = SceneManager.getInstance();
