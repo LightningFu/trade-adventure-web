@@ -1,0 +1,82 @@
+[
+  {
+    "id": "wood",
+    "name": "木材",
+    "basePrice": 50,
+    "type": "MATERIAL",
+    "icon": "log",
+    "description": "常见的建筑材料，清风镇的特产。"
+  },
+  {
+    "id": "grain",
+    "name": "粮食",
+    "basePrice": 30,
+    "type": "FOOD",
+    "icon": "wheat",
+    "description": "各地都需要的生活必需品。"
+  },
+  {
+    "id": "fish",
+    "name": "鱼类",
+    "basePrice": 40,
+    "type": "FOOD",
+    "icon": "fish",
+    "description": "碧水城的新鲜海产，美味可口。"
+  },
+  {
+    "id": "salt",
+    "name": "盐",
+    "basePrice": 60,
+    "type": "MATERIAL",
+    "icon": "crystal",
+    "description": "重要的调味品和防腐剂。"
+  },
+  {
+    "id": "iron",
+    "name": "铁矿",
+    "basePrice": 100,
+    "type": "MATERIAL",
+    "icon": "rock",
+    "description": "赤焰堡出产的优质铁矿石。"
+  },
+  {
+    "id": "weapon",
+    "name": "武器",
+    "basePrice": 200,
+    "type": "EQUIPMENT",
+    "icon": "sword",
+    "description": "赤焰堡工匠打造的精良武器。"
+  },
+  {
+    "id": "herb",
+    "name": "药材",
+    "basePrice": 150,
+    "type": "LUXURY",
+    "icon": "leaf",
+    "description": "翡翠林深处的珍稀草药，有奇效。"
+  },
+  {
+    "id": "silk",
+    "name": "丝绸",
+    "basePrice": 300,
+    "type": "LUXURY",
+    "icon": "scroll",
+    "description": "翡翠林特产的精美丝绸，价值不菲。"
+  },
+  {
+    "id": "spice",
+    "name": "香料",
+    "basePrice": 250,
+    "type": "LUXURY",
+    "icon": "flask",
+    "description": "来自远方的珍贵香料，令人垂涎。"
+  },
+  {
+    "id": "gem",
+    "name": "宝石",
+    "basePrice": 500,
+    "type": "LUXURY",
+    "icon": "diamond",
+    "description": "璀璨夺目的宝石，价值连城。"
+  }
+]

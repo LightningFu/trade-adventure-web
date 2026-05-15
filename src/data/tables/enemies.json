@@ -1,0 +1,80 @@
+[
+  {
+    "id": "1",
+    "name": "山贼",
+    "minLevel": 1,
+    "maxLevel": 3,
+    "hp": 40,
+    "atk": 8,
+    "def": 3,
+    "exp": 15,
+    "goldDrop": 20,
+    "skills": ["attack", "heavy_strike"],
+    "personality": "aggressive"
+  },
+  {
+    "id": "2",
+    "name": "野狼",
+    "minLevel": 1,
+    "maxLevel": 2,
+    "hp": 30,
+    "atk": 10,
+    "def": 2,
+    "exp": 10,
+    "goldDrop": 5,
+    "skills": ["attack"],
+    "personality": "aggressive"
+  },
+  {
+    "id": "3",
+    "name": "强盗",
+    "minLevel": 3,
+    "maxLevel": 5,
+    "hp": 70,
+    "atk": 14,
+    "def": 6,
+    "exp": 30,
+    "goldDrop": 50,
+    "skills": ["attack", "heavy_strike", "defend"],
+    "personality": "balanced"
+  },
+  {
+    "id": "4",
+    "name": "巨蟒",
+    "minLevel": 4,
+    "maxLevel": 6,
+    "hp": 90,
+    "atk": 16,
+    "def": 5,
+    "exp": 40,
+    "goldDrop": 30,
+    "skills": ["attack", "attack"],
+    "personality": "aggressive"
+  },
+  {
+    "id": "5",
+    "name": "暗影刺客",
+    "minLevel": 6,
+    "maxLevel": 8,
+    "hp": 60,
+    "atk": 22,
+    "def": 8,
+    "exp": 60,
+    "goldDrop": 80,
+    "skills": ["attack", "heavy_strike", "defend"],
+    "personality": "cunning"
+  },
+  {
+    "id": "6",
+    "name": "龙裔",
+    "minLevel": 8,
+    "maxLevel": 10,
+    "hp": 150,
+    "atk": 28,
+    "def": 12,
+    "exp": 100,
+    "goldDrop": 150,
+    "skills": ["attack", "heavy_strike", "defend", "fireball"],
+    "personality": "balanced"
+  }
+]

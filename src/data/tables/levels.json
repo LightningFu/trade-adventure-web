@@ -1,0 +1,17 @@
+[
+  { "level": 1,  "expRequired": 0 },
+  { "level": 2,  "expRequired": 30 },
+  { "level": 3,  "expRequired": 80 },
+  { "level": 4,  "expRequired": 150 },
+  { "level": 5,  "expRequired": 250 },
+  { "level": 6,  "expRequired": 400 },
+  { "level": 7,  "expRequired": 600 },
+  { "level": 8,  "expRequired": 850 },
+  { "level": 9,  "expRequired": 1150 },
+  { "level": 10, "expRequired": 1500 },
+  { "level": 11, "expRequired": 2000 },
+  { "level": 12, "expRequired": 2600 },
+  { "level": 13, "expRequired": 3300 },
+  { "level": 14, "expRequired": 4100 },
+  { "level": 15, "expRequired": 5000 }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "name": "清风镇",
+    "level": 1,
+    "description": "宁静的小镇，四周环绕着茂密的森林，是新手商人的起点。",
+    "goods": [
+      { "goodsId": "wood", "basePrice": 50 },
+      { "goodsId": "grain", "basePrice": 30 }
+    ],
+    "position": { "x": 80, "y": 500 }
+  },
+  {
+    "id": "2",
+    "name": "碧水城",
+    "level": 1,
+    "description": "依水而建的繁华城市，渔业和盐业发达。",
+    "goods": [
+      { "goodsId": "fish", "basePrice": 40 },
+      { "goodsId": "salt", "basePrice": 60 }
+    ],
+    "position": { "x": 250, "y": 450 }
+  },
+  {
+    "id": "3",
+    "name": "赤焰堡",
+    "level": 3,
+    "description": "矗立在火山旁的坚固堡垒，盛产铁矿和武器。",
+    "goods": [
+      { "goodsId": "iron", "basePrice": 100 },
+      { "goodsId": "weapon", "basePrice": 200 }
+    ],
+    "position": { "x": 300, "y": 250 }
+  },
+  {
+    "id": "4",
+    "name": "翡翠林",
+    "level": 5,
+    "description": "隐藏在深林中的神秘之地，出产珍贵药材和丝绸。",
+    "goods": [
+      { "goodsId": "herb", "basePrice": 150 },
+      { "goodsId": "silk", "basePrice": 300 }
+    ],
+    "position": { "x": 100, "y": 200 }
+  },
+  {
+    "id": "5",
+    "name": "黄金沙港",
+    "level": 8,
+    "description": "传说中的黄金港口，香料和宝石贸易的中心。",
+    "goods": [
+      { "goodsId": "spice", "basePrice": 250 },
+      { "goodsId": "gem", "basePrice": 500 }
+    ],
+    "position": { "x": 200, "y": 80 }
+  }
+]

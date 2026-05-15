@@ -1,0 +1,56 @@
+[
+  {
+    "id": "attack",
+    "name": "普通攻击",
+    "type": "ATTACK",
+    "description": "进行一次普通攻击，造成基础伤害。",
+    "mpCost": 0,
+    "multiplier": 1.0,
+    "target": "enemy"
+  },
+  {
+    "id": "heavy_strike",
+    "name": "重击",
+    "type": "HEAVY_STRIKE",
+    "description": "蓄力一击，造成1.5倍伤害。",
+    "mpCost": 5,
+    "multiplier": 1.5,
+    "target": "enemy"
+  },
+  {
+    "id": "defend",
+    "name": "防御",
+    "type": "DEFEND",
+    "description": "进入防御姿态，本回合减伤50%。",
+    "mpCost": 0,
+    "multiplier": 0,
+    "target": "self"
+  },
+  {
+    "id": "fireball",
+    "name": "火球术",
+    "type": "FIREBALL",
+    "description": "释放火球，造成1.8倍魔法伤害，无视部分防御。",
+    "mpCost": 10,
+    "multiplier": 1.8,
+    "target": "enemy"
+  },
+  {
+    "id": "heal",
+    "name": "治疗术",
+    "type": "HEAL",
+    "description": "恢复自身HP，恢复量为攻击力的1.0倍。",
+    "mpCost": 8,
+    "multiplier": 1.0,
+    "target": "self"
+  },
+  {
+    "id": "flee",
+    "name": "逃跑",
+    "type": "FLEE",
+    "description": "尝试逃离战斗，有概率成功。",
+    "mpCost": 0,
+    "multiplier": 0,
+    "target": "none"
+  }
+]
