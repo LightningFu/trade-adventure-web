@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>游戏点击测试</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #333;
+      font-family: sans-serif;
+    }
+    #game-canvas {
+      display: block;
+      margin: 0 auto;
+      border: 2px solid gold;
+      image-rendering: pixelated;
+    }
+    .controls {
+      margin: 20px auto;
+      max-width: 400px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #log {
+      margin-top: 20px;
+      padding: 10px;
+      background: #222;
+      color: #0f0;
+      font-family: monospace;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button id="btn1">测试点击"开始游戏"</button>
+    <button id="btn2">获取Canvas信息</button>
+    <button id="btn3">查看点击日志</button>
+    <div id="log"></div>
+  </div>
+
+  <script type="module">
+    import { Game } from './src/main.ts';
+
+    const logEl = document.getElementById('log');
+
+    function log(msg) {
+      const time = new Date().toLocaleTimeString();
+      logEl.textContent += `[${time}] ${msg}\n`;
+      logEl.scrollTop = logEl.scrollHeight;
+      console.log(msg);
+    }
+
+    // 初始化游戏
+    const canvas = document.getElementById('game-canvas');
+    if (canvas) {
+      log('Canvas 元素已找到');
+      log(`Canvas ID: ${canvas.id}`);
+      log(`Canvas 尺寸: ${canvas.width}x${canvas.height}`);
+    }
+
+    // 按钮事件
+    document.getElementById('btn1').onclick = () => {
+      if (window.game) {
+        log('尝试点击"开始游戏"按钮...');
+        // 模拟点击在按钮区域 (187.5, 450)
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        const gameX = 187.5;
+        const gameY = 450;
+
+        const clientX = rect.left + gameX / scaleX;
+        const clientY = rect.top + gameY / scaleY;
+
+        log(`点击位置: 游戏坐标(${gameX}, ${gameY}) -> 屏幕坐标(${clientX.toFixed(0)}, ${clientY.toFixed(0)})`);
+
+        // 触发点击事件
+        const mousedown = new MouseEvent('mousedown', {
+          bubbles: true,
+          clientX: clientX,
+          clientY: clientY
+        });
+        const mouseup = new MouseEvent('mouseup', {
+          bubbles: true,
+          clientX: clientX,
+          clientY: clientY
+        });
+
+        canvas.dispatchEvent(mousedown);
+        canvas.dispatchEvent(mouseup);
+
+        log('点击事件已发送');
+      } else {
+        log('游戏未初始化');
+      }
+    };
+
+    document.getElementById('btn2').onclick = () => {
+      if (canvas) {
+        const rect = canvas.getBoundingClientRect();
+        log(`Canvas 显示尺寸: ${rect.width.toFixed(0)}x${rect.height.toFixed(0)}`);
+        log(`Canvas 位置: left=${rect.left.toFixed(0)}, top=${rect.top.toFixed(0)}`);
+        log(`逻辑尺寸: ${canvas.width}x${canvas.height}`);
+      }
+    };
+
+    document.getElementById('btn3').onclick = () => {
+      logEl.textContent = '';
+    };
+
+    // 初始化游戏
+    (async () => {
+      log('开始初始化游戏...');
+      const game = window.game = Game.getInstance(canvas);
+      game.init();
+
+      const sceneManager = game.sceneManager;
+      const { MainMenuScene } = await import('./src/scenes/MainMenuScene.ts');
+      sceneManager.push(new MainMenuScene(game));
+
+      game.start();
+      log('游戏已启动!');
+
+      // 监听点击区域
+      setTimeout(() => {
+        const inputManager = window.game.inputManager;
+        log(`已注册点击区域数: ${inputManager.clickAreas?.length || 'N/A'}`);
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>

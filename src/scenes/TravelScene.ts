@@ -143,21 +143,23 @@ export class TravelScene extends BaseScene {
 
     // 技能按钮
     const skills = this.battleSystem.getAvailableSkills();
-    const btnWidth = 100;
+    const btnWidth = 80;
     const btnHeight = 36;
-    const btnGap = 8;
+    const btnGap = 6;
     const totalWidth = skills.length * btnWidth + (skills.length - 1) * btnGap;
     const startX = (SCREEN_WIDTH - totalWidth) / 2;
     const btnY = 510;
 
     skills.forEach((skill, index) => {
+      // 普通攻击和防御、逃跑不显示MP消耗（mpCost为0）
+      const buttonText = skill.mpCost > 0 ? `${skill.name}(${skill.mpCost})` : skill.name;
       const btn = new Button(
         `skill_${skill.id}`,
         startX + index * (btnWidth + btnGap),
         btnY,
         btnWidth,
         btnHeight,
-        `${skill.name}(${skill.mpCost})`,
+        buttonText,
         () => {
           if (this.battleSystem && this.battleSystem.getState() === BATTLE_STATE.PLAYER_TURN) {
             this.playerUseSkill(skill.id);

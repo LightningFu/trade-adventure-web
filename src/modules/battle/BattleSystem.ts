@@ -108,8 +108,9 @@ export class BattleSystem {
     const skill = skillsData.find((s) => s.id === skillId) as SkillConfig | undefined;
     if (!skill) return;
 
-    // 检查MP
-    if (skill.mpCost > 0 && !this.player.consumeMp(skill.mpCost)) {
+    // 普通攻击不消耗MP，只有技能才消耗
+    const isNormalAttack = skill.type === SKILL_TYPE.ATTACK;
+    if (!isNormalAttack && skill.mpCost > 0 && !this.player.consumeMp(skill.mpCost)) {
       this.addLog('MP不足！', 'system');
       return;
     }
@@ -204,7 +205,13 @@ export class BattleSystem {
 
       case SKILL_TYPE.DEFEND: {
         this.player.setDefending();
+        // 防御时回复少量MP（最大MP的10%）
+        const mpRecover = Math.floor(this.player.maxMp * 0.1);
+        const actualMpRecover = this.player.restoreMp(mpRecover);
         this.addLog('你进入了防御姿态，减伤提升！', 'player');
+        if (actualMpRecover > 0) {
+          this.addLog(`防御中恢复了 ${actualMpRecover} 点MP`, 'system');
+        }
         break;
       }
 
@@ -235,7 +242,12 @@ export class BattleSystem {
       }
 
       case SKILL_TYPE.FLEE: {
-        const fleeChance = FLEE_BASE_CHANCE + (this.player.getHpPercent() - 0.5) * 0.2;
+        // 逃跑成功率基于等级差：我方等级比敌方高5级必成功
+        const levelDiff = this.player.level - this.enemy.level;
+        // 基础成功率40%，每级差增加10%，高5级以上100%成功
+        let fleeChance = FLEE_BASE_CHANCE + levelDiff * 0.1;
+        fleeChance = Math.min(1.0, Math.max(0.1, fleeChance)); // 限制在10%-100%
+        
         if (chance(fleeChance)) {
           this.addLog('你成功逃离了战斗！', 'system');
           this.endBattle(false, true);

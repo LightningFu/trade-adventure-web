@@ -133,6 +133,8 @@ export class TownScene extends BaseScene {
     if (!this.currentTown) return;
 
     const goods = this.tradeSystem.getTownGoods(this.currentTown.id);
+    const inventory = this.tradeSystem.getInventory();
+    const inventoryItems = inventory.getItems();
 
     // 商店面板
     const shopPanel = new Panel(20, 80, SCREEN_WIDTH - 40, 480, `${this.currentTown.name} - 商店`);
@@ -144,11 +146,15 @@ export class TownScene extends BaseScene {
     });
     this.uiManager.addButton(backBtn);
 
-    // 货物列表
     const contentArea = shopPanel.getContentArea();
+    let y = contentArea.y + 10;
+    
+    // 显示城镇可购买的商品（买入区域）
+    const buySectionLabel = new Label('【可购买】', contentArea.x + 10, y, COLORS.GOLD_COLOR, FONT_SIZE.SMALL);
+    this.uiManager.addLabel('shop_buy_section', buySectionLabel);
+    y += 20;
+    
     goods.forEach((goodsInfo, index) => {
-      const y = contentArea.y + 10 + index * 60;
-
       // 货物名称和价格
       const nameLabel = new Label(
         `${goodsInfo.name}`,
@@ -171,7 +177,7 @@ export class TownScene extends BaseScene {
       // 买入按钮
       const buyBtn = new Button(
         `shop_buy_${index}`,
-        contentArea.x + contentArea.width - 130,
+        contentArea.x + contentArea.width - 70,
         y + 4,
         56,
         30,
@@ -181,21 +187,64 @@ export class TownScene extends BaseScene {
         }
       );
       this.uiManager.addButton(buyBtn);
-
-      // 卖出按钮
-      const sellBtn = new Button(
-        `shop_sell_${index}`,
-        contentArea.x + contentArea.width - 68,
-        y + 4,
-        56,
-        30,
-        '卖出',
-        () => {
-          this.sellGoods(goodsInfo.goodsId, 1);
-        }
-      );
-      this.uiManager.addButton(sellBtn);
+      
+      y += 55;
     });
+    
+    // 显示背包中的物品（卖出区域）
+    y += 10;
+    const sellSectionLabel = new Label('【背包物品】', contentArea.x + 10, y, COLORS.GOLD_COLOR, FONT_SIZE.SMALL);
+    this.uiManager.addLabel('shop_sell_section', sellSectionLabel);
+    y += 20;
+    
+    if (inventoryItems.length === 0) {
+      const emptyLabel = new Label('背包是空的', contentArea.x + 10, y, COLORS.GRAY, FONT_SIZE.NORMAL);
+      this.uiManager.addLabel('shop_empty_inv', emptyLabel);
+    } else {
+      inventoryItems.forEach((item, index) => {
+        const goodsInfo = this.tradeSystem.getGoodsInfo(item.goodsId);
+        if (!goodsInfo) return;
+        
+        // 获取当前城镇该物品的卖出价格（如果城镇有该商品，用城镇价格；否则用基础价格）
+        const townGoods = goods.find(g => g.goodsId === item.goodsId);
+        const sellPrice = townGoods ? townGoods.currentPrice : Math.floor(goodsInfo.basePrice * 0.8);
+        
+        // 物品名称和数量
+        const nameLabel = new Label(
+          `${goodsInfo.name} x${item.quantity}`,
+          contentArea.x + 10,
+          y,
+          COLORS.WHITE,
+          FONT_SIZE.NORMAL
+        );
+        this.uiManager.addLabel(`inv_name_${index}`, nameLabel);
+
+        const priceLabel = new Label(
+          `卖出价: ${sellPrice}G`,
+          contentArea.x + 10,
+          y + FONT_SIZE.NORMAL * PIXEL_SCALE + 4,
+          COLORS.LIGHT_GRAY,
+          FONT_SIZE.SMALL
+        );
+        this.uiManager.addLabel(`inv_price_${index}`, priceLabel);
+
+        // 卖出按钮
+        const sellBtn = new Button(
+          `shop_sell_${index}`,
+          contentArea.x + contentArea.width - 70,
+          y + 4,
+          56,
+          30,
+          '卖出',
+          () => {
+            this.sellGoods(item.goodsId, 1);
+          }
+        );
+        this.uiManager.addButton(sellBtn);
+        
+        y += 55;
+      });
+    }
   }
 
   private buyGoods(goodsId: string, quantity: number): void {
