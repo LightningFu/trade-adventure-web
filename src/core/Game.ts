@@ -58,6 +58,9 @@ export class Game {
   init(): void {
     if (this.initialized) return;
 
+    // 设置 Canvas 引用给 InputManager（用于坐标转换）
+    this.inputManager.setCanvas(this.renderer.getCanvas());
+
     // 设置游戏循环回调
     this.gameLoop.onUpdate((dt) => this.update(dt));
     this.gameLoop.onRender((dt) => this.render(dt));
