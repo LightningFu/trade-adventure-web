@@ -141,21 +141,30 @@ export class TravelScene extends BaseScene {
     const logLabel = new Label('', 40, 440, COLORS.LIGHT_GRAY, FONT_SIZE.SMALL);
     this.uiManager.addLabel('battle_log', logLabel);
 
-    // 技能按钮
+    // 技能按钮 - 分两行显示
     const skills = this.battleSystem.getAvailableSkills();
-    const btnWidth = 80;
-    const btnHeight = 36;
-    const btnGap = 6;
-    const totalWidth = skills.length * btnWidth + (skills.length - 1) * btnGap;
-    const startX = (SCREEN_WIDTH - totalWidth) / 2;
-    const btnY = 510;
+    const btnWidth = 90;
+    const btnHeight = 32;
+    const btnGap = 8;
+    const buttonsPerRow = 3;
+    const btnY1 = 500; // 第一行
+    const btnY2 = 538; // 第二行
+    
+    // 计算每行按钮的起始X位置
+    const rowWidth = buttonsPerRow * btnWidth + (buttonsPerRow - 1) * btnGap;
+    const startX = (SCREEN_WIDTH - rowWidth) / 2;
 
     skills.forEach((skill, index) => {
       // 普通攻击和防御、逃跑不显示MP消耗（mpCost为0）
       const buttonText = skill.mpCost > 0 ? `${skill.name}(${skill.mpCost})` : skill.name;
+      const row = Math.floor(index / buttonsPerRow);
+      const col = index % buttonsPerRow;
+      const btnX = startX + col * (btnWidth + btnGap);
+      const btnY = row === 0 ? btnY1 : btnY2;
+      
       const btn = new Button(
         `skill_${skill.id}`,
-        startX + index * (btnWidth + btnGap),
+        btnX,
         btnY,
         btnWidth,
         btnHeight,
